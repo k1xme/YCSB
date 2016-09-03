@@ -54,10 +54,12 @@ public class DocumentDBClient extends DB {
     Document record = getDocumentById(table, key);
 
     if (record != null) {
-      System.println("Found record");
       Set<String> fieldsToReturn = (fields == null ? record.getHashMap().keySet() : fields);
 
       for (String field : fieldsToReturn) {
+        if (field.startsWith("_")) {
+          continue;
+        }
         result.put(field, new StringByteIterator(record.getString(field)));  
       }
       return Status.OK;
@@ -93,6 +95,8 @@ public class DocumentDBClient extends DB {
   @Override
   public Status insert(String table, String key, HashMap<String, ByteIterator> values) {
     Document record = new Document();
+
+    record.set("id", key);
 
     for (Entry<String, ByteIterator> val : values.entrySet()) {
       record.set(val.getKey(), val.getValue().toString());
