@@ -54,6 +54,7 @@ public class DocumentDBClient extends DB {
     Document record = getDocumentById(table, key);
 
     if (record != null) {
+      System.println("Found record");
       Set<String> fieldsToReturn = (fields == null ? record.getHashMap().keySet() : fields);
 
       for (String field : fieldsToReturn) {
@@ -203,8 +204,7 @@ public class DocumentDBClient extends DB {
 
     if (documentList.size() > 0) {
       return documentList.get(0);
-    } else {
-      return null;
     }
+    return null;
   }
 }
