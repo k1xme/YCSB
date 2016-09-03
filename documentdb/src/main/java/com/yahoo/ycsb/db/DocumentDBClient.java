@@ -46,7 +46,7 @@ public class DocumentDBClient extends DB {
     documentClient = new DocumentClient(host, masterKey,
             ConnectionPolicy.GetDefault(), ConsistencyLevel.Session);
     // Initialize test database and collection.
-    getCollection(getProperties().getProperty("documentdb.collectionId", "ycsb"));
+    getCollection(getProperties().getProperty("documentdb.collectionId", "usertable"));
   }
 
   @Override
