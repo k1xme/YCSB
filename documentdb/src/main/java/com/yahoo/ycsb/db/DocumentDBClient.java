@@ -133,7 +133,7 @@ public class DocumentDBClient extends DB {
         // Get the database if it exists
         List<Database> databaseList = documentClient
                 .queryDatabases(
-                        "SELECT * FROM root r WHERE r.id='" + DATABASE_ID
+                        "SELECT * FROM root r WHERE r.id='" + databaseId
                                 + "'", null).getQueryIterable().toList();
 
         if (databaseList.size() > 0) {
@@ -144,7 +144,7 @@ public class DocumentDBClient extends DB {
             // Create the database if it doesn't exist.
             try {
                 Database databaseDefinition = new Database();
-                databaseDefinition.setId(DATABASE_ID);
+                databaseDefinition.setId(databaseId);
 
                 database = documentClient.createDatabase(
                         databaseDefinition, null).getResource();
