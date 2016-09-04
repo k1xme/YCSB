@@ -23,6 +23,7 @@ public class DocumentDBClient extends DB {
   private static String host;
   private static String masterKey;
   private static String databaseId;
+  private static String collectionId;
   private static Database database;
   private static DocumentClient documentClient;
   private static DocumentCollection collection;
@@ -43,10 +44,11 @@ public class DocumentDBClient extends DB {
     }
 
     databaseId = getProperties().getProperty("documentdb.databaseId", "ycsb");
+    collectionId = getProperties().getProperty("documentdb.collectionId", "usertable");
     documentClient = new DocumentClient(host, masterKey,
             ConnectionPolicy.GetDefault(), ConsistencyLevel.Session);
     // Initialize test database and collection.
-    getCollection(getProperties().getProperty("documentdb.collectionId", "usertable"));
+    getCollection(collectionId);
   }
 
   @Override
